@@ -7,6 +7,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var babelify = require('babelify');
+var brfs = require('brfs');
 var bulkify = require('bulkify');
 var hjsonify = require('hjsonify');
 var partialify = require('partialify/custom');
@@ -14,7 +15,7 @@ var getBundleName = require('../../utils/getBundleName.js');
 
 gulp.task(
 	'javascript:app',
-	['lint:javascript'],
+	['lint:javascript', 'clean:appjs'],
 	function (done) {
 		var bundler = browserify({
 			entries: ['./src/scripts/'],
@@ -33,6 +34,7 @@ gulp.task(
 					.transform(partialify.alsoAllow(['vue']))
 					.transform(bulkify)
 					.transform(hjsonify)
+					.transform(brfs)
 					.bundle()
 					.on('error', function (error) {
 						gulpUtil.log(gulpUtil.colors.red('Browserify Error:'), error.message);

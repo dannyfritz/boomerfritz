@@ -7,15 +7,16 @@ gulp.task(
 	'watch',
 	['default'],
 	function () {
-		liveServer.start({
-			root: './dist',
-			logLevel: 0
-		});
 		watch('src/scripts/**', runBatchTasks('javascript:app'));
 		watch('src/data/**', runBatchTasks('javascript:app'));
 		watch('package.json', runBatchTasks('javascript:vendor'));
 		watch('src/styles/**', runBatchTasks('css'));
 		watch('src/index.html', runBatchTasks('html'));
+		watch('src/images/**', runBatchTasks('images'));
 		watch('tests/**', runBatchTasks('test:javascript'));
+		liveServer.start({
+			root: './dist',
+			logLevel: 0
+		});
 	}
 );

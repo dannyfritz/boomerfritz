@@ -1,6 +1,6 @@
 var path = require('path');
 var gulp = require('gulp');
-var combiner = require('stream-combiner2');
+var gulpUtil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var npmImportPlugin = require('less-plugin-npm-import');
@@ -10,18 +10,20 @@ var autoprefix = new autoPrefixPlugin({ browsers: ["last 2 versions"] });
 
 gulp.task(
 	'css',
-	[],
-	function () {
-		var combined = combiner.obj([
-			gulp.src('./src/styles/main.less'),
-			sourcemaps.init(),
-			less({
-				paths: [ path.join(__dirname, 'src', 'styles') ],
+	['clean:css'],
+	function (done) {
+		return gulp
+			.src(path.resolve(__dirname, '../..', 'src/styles/main.less'))
+			.pipe(less({
+				paths: [ path.resolve(__dirname, '../..', 'src', 'styles') ],
 				plugins: [autoprefix, npmImport]
-			}),
-			sourcemaps.write('./'),
-			gulp.dest('./dist')
-		]);
-		return combined;
+			}))
+			.on('error', function (error) {
+				gulpUtil.log(gulpUtil.colors.red('LESS Error:'), error.message);
+				done();
+			})
+			.pipe(sourcemaps.init())
+			.pipe(sourcemaps.write('./'))
+			.pipe(gulp.dest('./dist'));
 	}
 );

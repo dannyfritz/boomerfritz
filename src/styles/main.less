@@ -1,1 +1,77 @@
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
+html, body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	overflow: hidden;
+  background-color: #7F4A17;
+  color: #FF952D;
+}
+
+.header, .footer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  h1, p {
+    text-align: center;
+    width: 100vw;
+  }
+  h1 {
+    font-size: 20vmin;
+    font-family: 'Lobster', cursive;
+  }
+  p {
+    font-size: 10vmin;
+    font-family: 'Lora', serif;
+  }
+}
+
+.controls {
+	pointer-events: none;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
+
+	.controls__button {
+		pointer-events: auto;
+		outline: none;
+		border: none;
+		background: none;
+		transition: color 0.2s ease;
+	}
+	.controls__button:hover {
+		color: hsl(0, 0%, 20%);
+	}
+	.controls__button:active {
+		color: hsl(0, 0%, 50%);
+	}
+
+boomer-slideshow {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.slide {
+	flex: none;
+	width: 100vw;
+	height: 100vh;
+}
+
+	.boomer-slide__image {
+		display: block;
+		object-fit: contain;
+		height: 100vh;
+		width: 100vw;
+	}

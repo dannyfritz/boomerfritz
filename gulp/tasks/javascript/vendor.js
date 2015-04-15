@@ -9,7 +9,7 @@ var resolve = require('resolve');
 
 gulp.task(
 	'javascript:vendor',
-	[],
+	['clean:vendorjs'],
 	function () {
 		var bundler = browserify({
 			noParse: ['jquery']
