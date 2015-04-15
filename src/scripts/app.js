@@ -10,8 +10,18 @@ module.exports = Vue.extend({
 	template: require('./templates/boomer-app.vue'),
 	data () {
 		return {
-			images
+			images,
+			currentSlide: 0,
+			numberOfSlides: 0
 		};
+	},
+	created () {
+		this.$on('currentSlide', function (val) {
+			this.currentSlide = val;
+		});
+		this.$on('numberOfSlides', function (val) {
+			this.numberOfSlides = val;
+		});
 	},
 	attached () {
 		const gestures = Hammer(document.body);

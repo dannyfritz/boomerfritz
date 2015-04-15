@@ -11,6 +11,9 @@ Vue.component('boomer-slideshow', {
 			currentSlide: 0
 		};
 	},
+	attached () {
+		this.numberOfSlides();
+	},
 	watch: {
 		currentSlide (val) {
 			$(this.$el).find('.slide').get(val).scrollIntoView();
@@ -22,17 +25,21 @@ Vue.component('boomer-slideshow', {
 			if (this.currentSlide < 0) {
 				this.currentSlide = 0;
 			}
+			this.$dispatch('currentSlide', this.currentSlide);
 		},
 		next () {
 			this.currentSlide = this.currentSlide + 1;
 			if (this.currentSlide >= this.numberOfSlides) {
 				this.currentSlide = this.numberOfSlides - 1;
 			}
+			this.$dispatch('currentSlide', this.currentSlide);
 		}
 	},
 	computed: {
 		numberOfSlides () {
-			return $(this.$el).find('> .slide').length;
+			const numberOfSlides = $(this.$el).find('> .slide').length;
+			this.$dispatch('numberOfSlides', numberOfSlides);
+			return numberOfSlides;
 		}
 	}
 });
