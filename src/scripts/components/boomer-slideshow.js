@@ -12,7 +12,7 @@ Vue.component('boomer-slideshow', {
 		};
 	},
 	attached () {
-		this.numberOfSlides();
+		this.$dispatch('numberOfSlides', this.numberOfSlides);
 	},
 	watch: {
 		currentSlide (val) {
